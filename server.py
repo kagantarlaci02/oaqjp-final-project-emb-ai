@@ -11,17 +11,17 @@ def sent_detector():
     text_to_analyze = request.args.get('textToAnalyze')
     response = emotion_detector(text_to_analyze)
 
-    anger = response['anger']
-    disgust = response['disgust']
-    fear = response['fear']
-    joy = response['joy']
-    sadness = response['sadness']
-    dominant_emotion = response['dominant_emotion']
+    if response['dominant_emotion'] is None:
+        return "Invalid text! Please try again!"
 
     return (
-        f"For the given statement, the system response is 'anger': {anger}, "
-        f"'disgust': {disgust}, 'fear': {fear}, 'joy': {joy} and "
-        f"'sadness': {sadness}. The dominant emotion is {dominant_emotion}."
+        "For the given statement, the system response is "
+        f"'anger': {response['anger']}, "
+        f"'disgust': {response['disgust']}, "
+        f"'fear': {response['fear']}, "
+        f"'joy': {response['joy']} and "
+        f"'sadness': {response['sadness']}. "
+        f"The dominant emotion is {response['dominant_emotion']}."
     )
 
 
